@@ -1,0 +1,17 @@
+version: "3"
+
+services:
+  pdfsort:
+    image: my_work_pdf
+    build:
+      context: .
+      dockerfile: ./docker/pdf/Dockerfile
+    container_name: myWork-pdf
+    env_file:
+      - ./docker/pdf/pdf.env
+    environment:
+      LOG_LEVEL: DEBUG
+    volumes:
+      - ./app:/opt/app
+      - ./docker/pdf/file:/tmp
+

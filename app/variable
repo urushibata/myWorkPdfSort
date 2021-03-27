@@ -1,0 +1,38 @@
+#!/bin/bash
+
+# S3 Bucket Name
+readonly s3_bucket=${1}
+# S3 PDF Object Key
+readonly s3_key=${2}
+# S3 PDF Object Url
+readonly s3_pdf_url=s3://${s3_bucket}/${s3_key}
+
+# Local Save Path
+readonly pdf_temp_dir=/tmp/pdf
+readonly pdf_sorted_dir=/tmp/pdf/sorted
+readonly img_temp_dir=/tmp/img
+
+rm -rf ${pdf_sorted_path} && mkdir -p ${pdf_sorted_dir}
+rm -rf ${img_temp_dir} &&  mkdir -p ${img_temp_dir}
+
+readonly DEFAULT=$IFS
+IFS=/
+readonly s3_keys=(${s3_key})
+IFS=$DEFAULT
+
+# S3 Top Directory Name
+readonly s3_prefix=${s3_keys[0]}
+# S3 Upload PDF File Name
+readonly s3_object=${s3_keys[1]}
+# none Extentiton PDF Name
+readonly pdf_basename=`echo ${s3_object} | sed 's/\.[^\.]*$//'`
+
+# Local PDF File Path
+readonly pdf_path=${pdf_temp_dir}/${s3_object}
+readonly pdf_sorted_path=${pdf_sorted_dir}/${s3_object}
+
+echo "Bucket Name: ${s3_bucket}"
+echo "Object Full Name: ${s3_key}"
+echo "pdf save path: ${pdf_path}"
+echo "pdf output path: ${pdf_sorted_path}"
+echo "s3 url: ${s3_pdf_url}"
