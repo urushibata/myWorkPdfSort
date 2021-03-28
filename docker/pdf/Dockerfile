@@ -12,3 +12,5 @@ RUN curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2
 RUN pip3 install pdf2image boto3 pathlib Pillow natsort
 
 COPY ./app /opt/app
+
+RUN chmod -R 755 /opt/app

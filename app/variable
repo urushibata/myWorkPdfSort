@@ -1,18 +1,20 @@
 #!/bin/bash
 
 # S3 Bucket Name
-readonly s3_bucket=${1}
+readonly s3_bucket=${S3_BUCKET_NAME}
 # S3 PDF Object Key
-readonly s3_key=${2}
+readonly s3_key=${1}
 # S3 PDF Object Url
 readonly s3_pdf_url=s3://${s3_bucket}/${s3_key}
+# S3 Image Object Text Rekognition Url
+readonly s3_img_url=s3://${s3_bucket}/ImageRekognition/Text
 
 # Local Save Path
 readonly pdf_temp_dir=/tmp/pdf
 readonly pdf_sorted_dir=/tmp/pdf/sorted
 readonly img_temp_dir=/tmp/img
 
-rm -rf ${pdf_sorted_path} && mkdir -p ${pdf_sorted_dir}
+rm -rf ${pdf_sorted_dir} && mkdir -p ${pdf_sorted_dir}
 rm -rf ${img_temp_dir} &&  mkdir -p ${img_temp_dir}
 
 readonly DEFAULT=$IFS
@@ -31,8 +33,13 @@ readonly pdf_basename=`echo ${s3_object} | sed 's/\.[^\.]*$//'`
 readonly pdf_path=${pdf_temp_dir}/${s3_object}
 readonly pdf_sorted_path=${pdf_sorted_dir}/${s3_object}
 
-echo "Bucket Name: ${s3_bucket}"
-echo "Object Full Name: ${s3_key}"
-echo "pdf save path: ${pdf_path}"
-echo "pdf output path: ${pdf_sorted_path}"
-echo "s3 url: ${s3_pdf_url}"
+# S3 Sorted PDF Object Url
+s3_sorted_pdf_url=s3://${s3_bucket}/${s3_prefix}/${pdf_basename}/${s3_object}
+
+echo "s3_bucket: ${s3_bucket}"
+echo "s3_key: ${s3_key}"
+echo "pdf_path: ${pdf_path}"
+echo "pdf_sorted_path: ${pdf_sorted_path}"
+echo "s3_pdf_url: ${s3_pdf_url}"
+echo "s3_img_url: ${s3_img_url}"
+echo "s3_sorted_pdf_url: ${s3_sorted_pdf_url}"

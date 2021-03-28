@@ -2,7 +2,7 @@ version: "3"
 
 services:
   pdfsort:
-    image: my_work_pdf
+    image: ${IMAGE_REPO_NAME}
     build:
       context: .
       dockerfile: ./docker/pdf/Dockerfile
@@ -10,6 +10,7 @@ services:
     env_file:
       - ./docker/pdf/pdf.env
     environment:
+      S3_BUCKET_NAME: mywork-web-bucket
       LOG_LEVEL: DEBUG
     volumes:
       - ./app:/opt/app

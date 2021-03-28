@@ -13,7 +13,7 @@ def main():
     img_dir = sys.argv[2]
 
     pdf_file = pathlib.Path(pdf_path)
-    last_page = None if len(sys.argv) < 4 else sys.argv[3]
+    last_page = None if len(sys.argv) < 4 else int(sys.argv[3])
 
     images = convert_from_path(pdf_file, last_page=last_page)
     for i, image in enumerate(images):
